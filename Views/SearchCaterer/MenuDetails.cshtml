@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Caterers.Models.Menu>
+
+@{
+    ViewData["Title"] = "Caterer Menu";
+}
+
+<h2>Menu Items</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th></th> <!-- Empty header for the 'Add to Cart' button column -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Price.ToString()</td>
+                    <td>
+                        <!-- Add to Cart Form for each menu item -->
+                        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                            <input type="hidden" name="menuItemId" value="@item.Id" />
+                            <input type="hidden" name="title" value="@item.Title" />
+                            <input type="hidden" name="price" value="@item.Price" />
+                            <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No menu items available.</p>
+}
+
+<a asp-action="Details" asp-route-catererId="@ViewBag.CatererId" class="btn btn-default">Back to Details</a>

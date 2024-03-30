@@ -1,0 +1,91 @@
+﻿@{
+	ViewData["Title"] = "Edit Menu";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Caterers.Models.Menu
+
+<br />
+
+<br />
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-6">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">Edit Food</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form asp-action="Edit" method="post" enctype="multipart/form-data">
+							<input type="hidden" asp-for="Id" />
+							<div class="card-body">
+								<div class="form-group">
+									<label>Title</label>
+									<input type="text" asp-for="Title" class="form-control">
+									
+								</div>
+								<div class="form-group">
+									<label>Description</label>
+									<input type="text" asp-for="Description" class="form-control">
+									
+
+								</div>
+								<div class="form-group">
+									<label>Price</label>
+									<input type="number" asp-for="Price" class="form-control">
+									
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12">
+										<!-- select -->
+										<div class="form-group">
+											<label>Caterer</label>
+											<select asp-for="CatererId" asp-items="@ViewBag.Caterers" class="form-control">
+												<option value="">-- Select Caterer --</option>
+											</select>
+											
+
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="form-group">
+									<label>Image</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" name="file" class="custom-file-input" id="file" asp-for="Image">
+											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+										</div>
+										<div class="input-group-append">
+											<span class="input-group-text">Upload</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer">
+								<button type="submit" value="Update" class="btn btn-primary">Update</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- general form elements disabled -->
+				<!-- /.card -->
+			</div>
+			<!--/.col (right) -->
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>

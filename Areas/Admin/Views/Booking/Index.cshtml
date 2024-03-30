@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Booking";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model IEnumerable<dynamic>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Booking List</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Start of your Booking List Table -->
+                <div class="card">
+                    <!-- Card Header -->
+                    <div class="card-body">
+                        <table id="bookingTable" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Caterer</th>
+                                    <th>Event Date</th>
+                                    <th>Guests</th>
+                                    <th>Booking Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var booking in Model)
+                                {
+                                    <tr>
+                                        <td>@booking.Id</td>
+                                        <td>@booking.UserName</td>
+                                        <td>@booking.UserPhone</td>
+                                        <td>@booking.CatererName</td>
+                                        <td>@booking.EventDate.ToShortDateString()</td>
+                                        <td>@booking.NumberOfGuests</td>
+                                        <td>@booking.BookingDate?.ToShortDateString()</td>
+                                        <td>@booking.Status</td>
+                                        <td>
+                                            <input type="checkbox" class="status-checkbox"
+                                                   data-booking-id="@booking.Id"
+                                            @(booking.Status == "Confirmed" ? "checked" : "") />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Card Footer -->
+                </div>
+                <!-- End of your Booking List Table -->
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.status-checkbox').on('change', function () {
+                var checkbox = $(this);
+                var bookingId = checkbox.data('booking-id');
+                var confirmed = checkbox.is(':checked');
+
+                // Get the current row that the checkbox is in
+                var currentRow = checkbox.closest('tr');
+                // Get the status cell in the current row
+                var statusCell = currentRow.find('td').eq(7); // assuming status is in the 8th column
+
+                $.ajax({
+                    url: '@Url.Action("UpdateStatus", "Booking", new { area = "Admin" })' + '/' + bookingId,
+                    type: 'POST',
+                    data: {
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                        id: bookingId,
+                        confirmed: confirmed // changed 'status' to 'confirmed' to match server-side parameter
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Update the status text in the table cell
+                            statusCell.text(response.status); // use the server-provided status
+                        } else {
+                            // Server responded with an error, revert checkbox and status
+                            checkbox.prop('checked', !confirmed);
+                            statusCell.text(!confirmed ? "Confirmed" : "Pending");
+                            console.error('Failed to update booking status:', response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // AJAX call failed, revert checkbox and status
+                        checkbox.prop('checked', !confirmed);
+                        statusCell.text(!confirmed ? "Confirmed" : "Pending");
+                        console.error('Error updating booking status:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}

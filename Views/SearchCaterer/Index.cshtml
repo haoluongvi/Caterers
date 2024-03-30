@@ -1,0 +1,74 @@
+﻿@model Caterers.Models.SearchCatererViewModel
+
+<form asp-controller="SearchCaterer" asp-action="Index" method="get">
+	<div class="form-row">
+		<!-- Address dropdown -->
+		<div class="form-group col-md-4">
+			<label asp-for="Address" class="control-label">Choice of Place: </label>
+			<select asp-for="Address" asp-items="@(Model.Addresses != null ? new SelectList(Model.Addresses) : new SelectList(Enumerable.Empty<string>()))" class="form-control">
+				<option value="">All</option>
+				@foreach (var address in Model.Addresses)
+				{
+					<option value="@address">@address</option>
+				}
+			</select>
+		</div>
+		<br />
+		<!-- Category dropdown -->
+		<div class="form-group col-md-4">
+			<label asp-for="CategoryId" class="control-label">Type of Food: </label>
+			<select asp-for="CategoryId" asp-items="@(Model.Categories != null ? new SelectList(Model.Categories, "Id", "Name") : new SelectList(Enumerable.Empty<SelectListItem>()))" class="form-control">
+				<option value="">All</option>
+				@foreach (var category in Model.Categories)
+				{
+					<option value="@category.Id">@category.Name</option>
+				}
+			</select>
+		</div>
+		<br />
+		<!-- Minimum Guests input -->
+		<div class="form-group col-md-4">
+			<label asp-for="MinimumGuestCount" class="control-label">No. of People: </label>
+			<input asp-for="MinimumGuestCount" class="form-control" />
+		</div>
+	</div>
+	<br />
+	<button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model.SearchPerformed)
+{
+	if (Model.Caterers.Any())
+	{
+		<h3>Results</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Category</th>
+					<th>Guest Count</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var caterer in Model.Caterers)
+				{
+					<tr>
+						<td>@caterer.Name</td>
+						<td>@caterer.Address</td>
+						<td>@caterer.Category.Name</td>
+						<td>@caterer.MinimumGuestCount</td>
+						<td>
+							<a asp-action="Details" asp-route-catererId="@caterer.Id" class="btn btn-info">Details</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>No caterers found matching your criteria.</p>
+	}
+}

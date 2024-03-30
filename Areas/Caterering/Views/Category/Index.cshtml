@@ -1,0 +1,85 @@
+﻿@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Areas/Caterering/Views/Shared/_CatererLayout.cshtml";
+}
+
+@model IEnumerable<Caterers.Models.Category>
+
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1>Category List</h1>
+			</div>
+		</div>
+	</div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+
+					<!-- /.card-header -->
+					<div class="card-body">
+						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row">
+								<div class="col-sm-12 col-md-6"></div>
+								<div class="col-sm-12 col-md-6"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+										   aria-describedby="example2_info">
+										<thead>
+											<tr>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+													Category ID
+												</th>
+												<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="Browser: activate to sort column ascending">Category Name</th>
+
+
+												<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="CSS grade: activate to sort column ascending">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											@foreach (var category in Model)
+											{
+												<tr>
+													<td>@category.Id</td>
+													<td>@category.Name</td>
+
+
+
+													<td>
+														<a asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
+														<a asp-action="Delete" asp-route-id="@category.Id" onclick="return confirm('Are you sure?')">Delete</a>
+													</td>
+
+
+												</tr>
+											}
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</section>

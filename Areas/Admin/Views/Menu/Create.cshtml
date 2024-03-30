@@ -1,0 +1,87 @@
+﻿@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model Caterers.Models.Menu
+
+<br />
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-6">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">Create New Food</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form asp-action="Create" method="post" enctype="multipart/form-data">
+							<div class="card-body">
+								<div class="form-group">
+									<label>Title</label>
+									<input type="text" asp-for="Title" class="form-control" id="Title" placeholder="Enter Title">
+									<span asp-validation-for="Title" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label>Description</label>
+									<input type="text" asp-for="Description" class="form-control" id="Description" placeholder="Enter Description">
+									<span asp-validation-for="Description" class="text-danger"></span>
+
+								</div>
+								<div class="form-group">
+									<label>Price</label>
+									<input type="number" asp-for="Price" class="form-control" id="Price" placeholder="Enter Price">
+									<span asp-validation-for="Price" class="text-danger"></span>
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12">
+										<!-- select -->
+										<div class="form-group">
+											<label>Caterer</label>
+											<select asp-for="CatererId" asp-items="@ViewBag.Caterers" class="form-control">
+												<option value="">-- Select Caterer --</option>
+											</select>
+											<span asp-validation-for="CatererId" class="text-danger"></span>
+
+										</div>
+									</div>
+
+								</div>
+								
+
+								<div class="form-group">
+									<label>Image</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" name="file" class="custom-file-input" id="file">
+											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+										</div>
+										<div class="input-group-append">
+											<span class="input-group-text">Upload</span>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer">
+								<button type="submit" value="Create" class="btn btn-primary">Create</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- general form elements disabled -->
+				<!-- /.card -->
+			</div>
+			<!--/.col (right) -->
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>

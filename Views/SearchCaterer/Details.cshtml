@@ -1,0 +1,38 @@
+﻿@model Caterers.Models.CatererDetailsViewModel
+
+@{
+    ViewData["Title"] = "Caterer Details";
+}
+
+<h2>@Model.Caterer.Name</h2>
+<p>
+    <strong>Address:</strong> @Model.Caterer.Address<br />
+    <strong>Category:</strong> @Model.Caterer.Category.Name<br />
+    <strong>Minimum Guest Count:</strong> @Model.Caterer.MinimumGuestCount
+</p>
+
+<h3>Menu Items</h3>
+@if (Model.MenuItems.Any())
+{
+    <ul>
+        @foreach (var item in Model.MenuItems)
+        {
+            <li>
+                @item.Title - @item.Price.ToString() - <img src="@Url.Content("~/images/" + item.Image)" alt="Menu Image" style="width: 80px; height: 80px;" />
+                <!-- Add to Cart Form for each menu item -->
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="menuItemId" value="@item.Id" />
+                    <input type="hidden" name="title" value="@item.Title" />
+                    <input type="hidden" name="price" value="@item.Price" />
+                    <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No menu items available.</p>
+}
+
+<a asp-action="Index" class="btn btn-default">Back to Search</a>

@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Areas/Caterering/Views/Shared/_CatererLayout.cshtml";
+}
+
+@model Caterers.Models.UserTable
+
+<section class="content">
+	<div class="row">
+		<div class="col-md-6">
+
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title">Account Information</h3>
+				</div>
+
+				<span class="text-green">@ViewBag.msg</span>
+				<form asp-area="admin" asp-controller="login" asp-action="profile" role="form">
+					<div class="card-body">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" id="username" required="required" asp-for="Username">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input class="form-control" id="password" type="password" required="required" asp-for="Password">
+						</div>
+						<div class="form-group">
+							<label for="name">Full Name</label>
+							<input type="text" class="form-control" id="name" required="required" asp-for="Name">
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" id="email" required="required" asp-for="Email">
+						</div>
+
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="text" class="form-control" id="phone" required="required" asp-for="Phone">
+						</div>
+
+						<div class="form-group">
+							<label for="address">Address</label>
+							<input type="text" class="form-control" id="address" required="required" asp-for="Address">
+						</div>
+
+					</div>
+
+					<div class="card-footer">
+						<button type="submit" class="btn btn-primary">Save</button>
+						<input type="hidden" asp-for="Id" />
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+</section>
+

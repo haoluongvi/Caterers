@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Caterers.Models.RoleUser>
+
+@{
+	ViewData["Title"] = "Role Users";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1>Role: @ViewBag.RoleName</h1>
+			</div>
+		</div>
+	</div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<!-- Users Table -->
+						<table id="usersTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>User Name</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (ViewBag.Users.Count == 0)
+								{
+									<tr>
+										<td colspan="2">No users found.</td>
+									</tr>
+								}
+								else
+								{
+									@foreach (var user in ViewBag.Users)
+									{
+										<tr>
+											<td>@user.Name</td>
+											<td>
+												<!-- Remove User Form -->
+												<form asp-action="RemoveUser" asp-controller="Role" method="post" class="d-inline">
+													<input type="hidden" name="roleId" value="@ViewBag.RoleId" />
+													<input type="hidden" name="userId" value="@user.Id" />
+													<button type="submit" class="btn btn-danger">Remove</button>
+												</form>
+											</td>
+										</tr>
+									}
+								}
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- Add User Form -->
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Add User to Role</h3>
+					</div>
+					<form asp-action="AddUser" asp-controller="Role" method="post" class="card-body">
+						<input type="hidden" name="roleId" value="@ViewBag.RoleId" />
+						<div class="form-group">
+							<label for="userId">Select User:</label>
+							<select class="form-control" name="userId" id="userId">
+								@foreach (var user in ViewBag.AllUsers)
+								{
+									<option value="@user.Id">@user.Name</option>
+								}
+							</select>
+						</div>
+						<div class="card-footer">
+							<button type="submit" class="btn btn-primary">Add User</button>
+						</div>
+					</form>
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</section>

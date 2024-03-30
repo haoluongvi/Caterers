@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<!-- Simulated checkout form (in a real application, this would need to be secure and possibly integrate with a payment API) -->
+<form asp-action="ProcessCheckout" method="post">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" name="address" required />
+    </div>
+    <div class="form-group">
+        <label for="creditCardNumber">Credit Card Number</label>
+        <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" required />
+    </div>
+    <!-- Other necessary fields -->
+    <button type="submit" class="btn btn-primary">Place Order</button>
+</form>

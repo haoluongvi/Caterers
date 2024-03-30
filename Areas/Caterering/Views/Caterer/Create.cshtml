@@ -1,0 +1,100 @@
+﻿@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Areas/Caterering/Views/Shared/_CatererLayout.cshtml";
+}
+
+@model Caterers.Models.Caterer
+<br />
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-6">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">Create New Caterer</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form asp-action="Create">
+							<!-- input states -->
+							<div class="form-group">
+								<label class="col-form-label" for="inputSuccess">
+									Caterer Name
+								</label>
+								<input asp-for="Name" class="form-control is-valid" id="Name" placeholder="Enter Caterer Name ...">
+							</div>
+
+							<div class="form-group">
+								<label class="col-form-label" for="inputSuccess">
+									Address
+								</label>
+								<input asp-for="Address" class="form-control is-valid" id="Address" placeholder="Enter Address ...">
+							</div>
+
+							<div class="form-group">
+								<label class="col-form-label" for="inputSuccess">
+									Phone
+								</label>
+								<input asp-for="Phone" class="form-control is-valid" id="Phone" placeholder="Enter Phone ...">
+							</div>
+
+							<div class="form-group">
+								<label class="col-form-label" for="inputSuccess">
+									Email
+								</label>
+								<input asp-for="Email" class="form-control is-valid" id="Email" placeholder="Enter Email ...">
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<!-- select -->
+									<div class="form-group">
+										<label>Category</label>
+										<select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
+											<option value="">-- Select Category --</option>
+										</select>
+
+
+									</div>
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<label class="col-form-label" for="inputSuccess">
+									MinGuest
+								</label>
+								<input asp-for="MinimumGuestCount" class="form-control is-valid" id="Email" placeholder="Enter Email ...">
+							</div>
+
+
+							<div class="row">
+								<div class="col-sm-12">
+									<!-- select -->
+									<div class="form-group">
+										<label>Status</label>
+										<select asp-for="Status" class="form-control">
+											<option value="true">Active</option>
+											<option value="false">Inactive</option>
+										</select>
+
+									</div>
+								</div>
+
+							</div>
+							<button type="submit" class="btn btn-primary">Save</button>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- general form elements disabled -->
+				<!-- /.card -->
+			</div>
+			<!--/.col (right) -->
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>
